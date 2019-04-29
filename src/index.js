@@ -6,21 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
 const url = 'http://localhost:3000/dogs'
 
 const getDogs = () =>
-  fetch(url)
-  .then(resp => resp.json())
+    fetch(url)
+    .then(resp => resp.json())
 
 const editDog = (dog) =>
-    fetch(`http://localhost:3000/dogs/${dog.id}`,  {
-    method: 'PATCH',
-    headers: {
-        'Content-Type': 'application/json'
-      },
-    body: JSON.stringify(dog)
-}).then(resp => resp.json())
+    fetch(url + `/${dog.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dog)
+    }).then(resp => resp.json())
 
 //! Code
 const renderDog = dog => {
-    const tbody =  document.querySelector('tbody')
+    const tbody = document.querySelector('tbody')
     const table = document.createElement('tr')
     table.dataset.id = dog.id
     table.innerHTML = `
@@ -30,7 +30,7 @@ const renderDog = dog => {
         <td><button>Edit</button></td>
     `
     tbody.append(table)
-    
+
     const edit = table.querySelector('button')
 
     edit.addEventListener('click', () => {
@@ -38,7 +38,7 @@ const renderDog = dog => {
         form.name.value = dog.name
         form.breed.value = dog.breed
         form.sex.value = dog.sex
-        form.dogId.value = dog.id        
+        form.dogId.value = dog.id
     })
 }
 
@@ -75,6 +75,6 @@ const fillRow = (dog) => {
 
 const init = () => {
     getDogs()
-    .then(renderDogs)
-    .then(EditForm)
+        .then(renderDogs)
+        .then(EditForm)
 }
